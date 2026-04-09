@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Açaí Mãe e Filho | Rústico & Gourmet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --madeira: #5d4037;
+            --madeira-escura: #3e2723;
+            --roxo: #4b0082;
+            --palha: #f5f5dc;
+            --branco: #ffffff;
+            --detalhe: #ffab00;
+        }
+
+        * { box-sizing: border-box; font-family: 'Poppins', sans-serif; margin: 0; padding: 0; }
+        
+        body { 
+            background-color: var(--palha); 
+            background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png'); 
+            color: var(--madeira); 
+            padding-bottom: 130px; 
+        }
+
+        header { 
+            background: var(--madeira); padding: 35px 20px; text-align: center; 
+            border-bottom: 6px solid var(--roxo); box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .logo-moldura { 
+            width: 100px; height: 100px; background: #fff; border: 3px solid var(--detalhe); 
+            border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; 
+            justify-content: center; overflow: hidden;
+        }
+        .logo-moldura img { width: 100%; height: 100%; object-fit: cover; }
+
+        header h1 { font-family: 'Special Elite', cursive; color: var(--palha); font-size: 24px; text-shadow: 2px 2px #000; }
+
+        .btn-info-loja {
+            position: absolute; top: 10px; right: 10px; background: var(--detalhe); 
+            color: var(--madeira-escura); padding: 6px 12px; border-radius: 20px; 
+            font-size: 10px; font-weight: bold; cursor: pointer; border: 2px solid var(--madeira-escura);
+        }
+
+        .busca-container { max-width: 600px; margin: 20px auto 0; padding: 0 20px; position: relative; }
+        .busca-input {
+            width: 100%; padding: 12px 45px 12px 15px; border-radius: 30px;
+            border: 2px solid var(--madeira); background: var(--branco);
+            font-size: 14px; outline: none; box-shadow: 3px 3px 0px var(--roxo);
+        }
+        .lupa-icon { position: absolute; right: 35px; top: 50%; transform: translateY(-50%); }
+
+        .container { padding: 10px 20px; max-width: 600px; margin: auto; }
+        .topico-titulo { 
+            font-family: 'Special Elite', cursive; background: var(--madeira-escura); color: var(--detalhe);
+            padding: 10px; margin: 30px 0 12px; border-radius: 5px; text-align: center; box-shadow: 3px 3px 0px var(--roxo);
+        }
+        .card { 
+            background: var(--branco); border-radius: 8px; display: flex; margin-bottom: 15px; 
+            box-shadow: 5px 5px 0px rgba(93, 64, 55, 0.1); overflow: hidden; border: 1px solid #ddd; cursor: pointer;
+        }
+        
+        .card-img-container { 
+            width: 110px; min-width: 110px; background: #fff; 
+            display: flex; align-items: center; justify-content: center; 
+            border-right: 1px solid #eee; overflow: hidden;
+        }
+        .card-img-container img { width: 100%; height: 100%; object-fit: cover; }
+
+        .card-body { padding: 12px; flex: 1; }
+        .card-body h3 { color: var(--roxo); font-size: 16px; margin-bottom: 4px; }
+        .card-body p { font-size: 12px; color: #6d4c41; line-height: 1.3; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 1000; backdrop-filter: blur(3px); }
+        .modal-content { 
+            background: var(--palha); width: 85%; max-width: 450px; margin: 40px auto; 
+            border-radius: 15px; padding: 20px; border: 4px solid var(--madeira); max-height: 85vh; overflow-y: auto;
+        }
+        .secao-titulo { color: var(--roxo); border-bottom: 2px solid var(--madeira); margin: 15px 0 10px; font-weight: bold; font-size: 13px; text-transform: uppercase; }
+        .op-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: white; margin-bottom: 6px; border-radius: 6px; border: 1px solid #eee; }
+
+        footer { 
+            position: fixed; bottom: 0; width: 100%; background: var(--branco); padding: 15px 20px; 
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.1); border-top: 4px solid var(--madeira); z-index: 900;
+        }
+        .btn-finalizar { background: var(--madeira); color: var(--detalhe); border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; text-transform: uppercase; box-shadow: 3px 3px 0px var(--roxo); }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="btn-info-loja" onclick="abrirInfo()">ℹ️ INFORMAÇÕES</div>
+    <div class="logo-moldura">
+        <img src="" alt="Logo Açaí Mãe e Filho">
+    </div>
+    <h1>Açaí Mãe e Filho</h1>
+</header>
+
+<div class="busca-container">
+    <input type="text" class="busca-input" id="inputBusca" placeholder="O que você deseja hoje?" onkeyup="filtrarSabores()">
+    <span class="lupa-icon">🔍</span>
+</div>
+
+<div class="container" id="listaSabores">
+    
+    <div class="topico-titulo">Açaí Puro</div>
+    <div class="card" onclick="abrirModal('Açaí Puro Tradicional', 'tradicional')">
+        <div class="card-img-container">
+            <img src="https://img.cdndsgni.com/preview/11960175.jpg" alt="Açaí Puro">
+        </div>
+        <div class="card-body">
+            <h3>Açaí Puro</h3>
+            <p>O creme legítimo do açaí artesanal.</p>
+        </div>
+    </div>
+
+    <div class="topico-titulo">Frutas & Energia</div>
+    <div class="card" onclick="abrirModal('Kiwi com Morango', 'frutas')">
+        <div class="card-img-container">
+            <img src="https://img.freepik.com/fotos-premium/xicara-de-acai-com-frutas-banana-e-kiwi-morango-sobre-mesa-de-madeira_255669-2636.jpg?w=360" alt="Kiwi com Morango">
+        </div>
+        <div class="card-body">
+            <h3>Kiwi com Morango</h3>
+            <p>Mix refrescante de frutas selecionadas.</p>
+        </div>
+    </div>
+
+    <div class="card" onclick="abrirModal('Banana com Granola', 'frutas')">
+        <div class="card-img-container">
+            <img src="https://as2.ftcdn.net/jpg/03/16/45/55/1000_F_316455568_Vi2GLTHaO9jdX7mWQ1c2JOQRGfnFaXow.jpg" alt="Banana com Granola">
+        </div>
+        <div class="card-body">
+            <h3>Banana com Granola</h3>
+            <p>Energia pura com crocância.</p>
+        </div>
+    </div>
+
+    <div class="topico-titulo">Especiais da Casa</div>
+    <div class="card" onclick="abrirModal('Especiaria da Casa', 'especial')">
+        <div class="card-img-container">
+            <img src="https://casaspedro.vteximg.com.br/arquivos/ids/163023-550-550/acai-1515784149344_v2_450x253.jpg?v=637354307002800000" alt="Especiaria">
+        </div>
+        <div class="card-body">
+            <h3>Especiaria da Casa</h3>
+            <p>Toque secreto da família Mãe e Filho.</p>
+        </div>
+    </div>
+
+    <div class="card" onclick="abrirModal('Açaí com Cupuaçu', 'especial')">
+        <div class="card-img-container">
+            <img src="https://media-cdn.tripadvisor.com/media/photo-s/17/31/55/01/acai-cupuacu.jpg" alt="Açaí com Cupuaçu">
+        </div>
+        <div class="card-body">
+            <h3>Açaí com Cupuaçu</h3>
+            <p>O equilíbrio perfeito do azedinho.</p>
+        </div>
+    </div>
+
+    <div class="topico-titulo">Sorvetes Artesanais</div>
+    <div class="card" onclick="abrirModal('Sorvete Artesanal', 'sorvetes')">
+        <div class="card-img-container">
+            <img src="https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/168850401964a486d31df61_75_75.jpeg" alt="Sorvetes">
+        </div>
+        <div class="card-body">
+            <h3>Sorvetes Diversos</h3>
+            <p>Sabores cremosos de fabricação própria.</p>
+        </div>
+    </div>
+</div>
+
+<div id="modalInfo" class="modal">
+    <div class="modal-content">
+        <h2 style="font-family:'Special Elite'; color:var(--roxo); text-align:center;">Nossa Loja 🏠</h2>
+        <div class="secao-titulo">Horários</div>
+        <p style="font-size:14px;">Terça a Sexta: 14:00 às 22:00</p>
+        <p style="font-size:14px;">Sáb e Dom: 13:00 às 23:00</p>
+        <button onclick="fecharInfo()" style="width:100%; border:none; background:var(--madeira); color:white; padding:12px; margin-top:20px; border-radius:8px; cursor:pointer;">FECHAR</button>
+    </div>
+</div>
+
+<div id="modalPedido" class="modal">
+    <div class="modal-content" id="conteudoMontagem">
+        <h2 id="modalTitulo" style="color:var(--roxo); font-family:'Special Elite';">Nome</h2>
+        <div class="secao-titulo">Tamanho</div>
+        <div id="opcoesTamanho"></div>
+        <div class="secao-titulo">Adicionais</div>
+        <label class="op-item">Leite em Pó <input type="checkbox" class="comp" value="Leite em Pó" data-preco="0"></label>
+        <label class="op-item">Leite Condensado <input type="checkbox" class="comp" value="Leite Condensado" data-preco="3"></label>
+        <button class="btn-finalizar" style="width:100%; margin-top:20px;" onclick="adicionarCarrinho()">ADICIONAR</button>
+        <button onclick="fecharModal()" style="width:100%; border:none; background:none; color:#999; margin-top:10px; cursor:pointer;">Cancelar</button>
+    </div>
+</div>
+
+<footer>
+    <div class="info-footer">
+        <span style="font-size:10px; color:#d32f2f; font-weight:bold;">🕒 30 - 50 min</span>
+        <div><span style="font-size:11px; color:#888">TOTAL</span><h2 id="totalDisplay">R$ 0,00</h2></div>
+    </div>
+    <button class="btn-finalizar" onclick="finalizarPedido()">Finalizar Compra</button>
+</footer>
+
+<script>
+    let carrinho = [];
+    let totalGeral = 0;
+    let itemBaseNome = '';
+
+    const configs = {
+        'tradicional': [{t:'300ml', p:12}, {t:'500ml', p:18}],
+        'frutas': [{t:'300ml', p:15}, {t:'500ml', p:22}],
+        'especial': [{t:'300ml', p:16}, {t:'500ml', p:24}],
+        'sorvetes': [{t:'1 Bola', p:8}, {t:'2 Bolas', p:14}]
+    };
+
+    function filtrarSabores() {
+        let input = document.getElementById('inputBusca').value.toLowerCase();
+        let cards = document.getElementsByClassName('card');
+        for (let card of cards) {
+            let nome = card.querySelector('h3').innerText.toLowerCase();
+            card.style.display = nome.includes(input) ? "flex" : "none";
+        }
+    }
+
+    function abrirInfo() { document.getElementById('modalInfo').style.display = 'block'; }
+    function fecharInfo() { document.getElementById('modalInfo').style.display = 'none'; }
+
+    function abrirModal(nome, chave) {
+        itemBaseNome = nome;
+        document.getElementById('modalTitulo').innerText = nome;
+        let html = '';
+        configs[chave].forEach((obj, i) => {
+            html += `<label class="op-item">${obj.t} - R$ ${obj.p},00 <input type="radio" name="tam" value="${obj.t}" data-preco="${obj.p}" ${i===0?'checked':''}></label>`;
+        });
+        document.getElementById('opcoesTamanho').innerHTML = html;
+        document.getElementById('modalPedido').style.display = 'block';
+    }
+
+    function fecharModal() { document.getElementById('modalPedido').style.display = 'none'; }
+
+    function adicionarCarrinho() {
+        const rad = document.querySelector('input[name="tam"]:checked');
+        let preco = parseFloat(rad.getAttribute('data-preco'));
+        document.querySelectorAll('.comp:checked').forEach(c => preco += parseFloat(c.getAttribute('data-preco')));
+        carrinho.push({ desc: `${itemBaseNome} (${rad.value})`, preco });
+        totalGeral += preco;
+        document.getElementById('totalDisplay').innerText = `R$ ${totalGeral.toFixed(2).replace('.', ',')}`;
+        fecharModal();
+    }
+
+    function finalizarPedido() {
+        if(carrinho.length === 0) return alert("Carrinho vazio!");
+        window.open(`https://wa.me/5511999999999?text=Novo Pedido Açaí Mãe e Filho! Total: R$ ${totalGeral.toFixed(2)}`);
+        location.reload();
+    }
+</script>
+</body>
+</html>
